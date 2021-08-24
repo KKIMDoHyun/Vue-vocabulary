@@ -21,9 +21,26 @@ export default {
     },
     methods: {
         addWord() {
-            console.log(this.newWord.eng, this.newWord.kor)
-            localStorage.setItem('wordsList', JSON.stringify(this.newWord));
-            this.clearInput();
+            if(this.newWord.eng !== '' && this.newWord.kor !== ''){
+                const res = this.$store.state.wordsList.findIndex(this.isDuplicate)
+                if(res === -1) {
+                    const eng = this.newWord.eng.trim();
+                    const kor = this.newWord.kor.trim();
+                    this.$store.commit("addOneWord", {eng, kor});
+                    this.clearInput();
+                } else {
+                    alert("이미 값이 있습니다.")
+                    this.clearInput();
+                }
+                
+            }
+        },
+        isDuplicate(ele) {
+            if(ele.eng === this.newWord.eng) {
+                return true;
+            } else {
+                return false;
+            }
         },
         clearInput() {
             this.newWord.kor = '';
