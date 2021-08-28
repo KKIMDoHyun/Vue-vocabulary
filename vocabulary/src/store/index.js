@@ -23,13 +23,29 @@ export const store = new Vuex.Store({
     },
     mutations: {
         addOneWord(state, payload) {
-            const obj = {completed: false, eng: payload.eng, kor: payload.kor};
+            const obj = {testMode: false, eng: payload.eng, kor: payload.kor};
             localStorage.setItem(payload.eng, JSON.stringify(obj));
             state.wordsList.push(obj);
         },
         removeOneWord(state, payload) {
             localStorage.removeItem(payload.word.eng);
             state.wordsList.splice(payload.index, 1);
+        },
+        testStart(state, payload) {
+            if(payload.length > 0) {
+                for(let i = 0; i < payload.length; i++) {
+                    payload[i].testMode = true;
+                    localStorage.setItem(payload[i].eng, JSON.stringify(payload[i]))
+                }
+            }
+        },
+        testFinish(state, payload) {
+            if(payload.length > 0) {
+                for(let i = 0; i < payload.length; i++) {
+                    payload[i].testMode = false;
+                    localStorage.setItem(payload[i].eng, JSON.stringify(payload[i]))
+                }
+            }
         },
         clearAllWords(state){
             localStorage.clear();
