@@ -3,8 +3,10 @@
       <div class="input">
             <input type="text" placeholder="영단어" v-model="newWord.eng">
             <input type="text" placeholder="뜻" v-model="newWord.kor" v-on:keyup.enter="addWord">
-            <button type="submit" class="addContainer" @click="addWord">추가하기</button>
-
+            <button type="submit" 
+                    class="addContainer"
+                    :disabled="this.$store.state.testMode"
+                    @click="addWord">추가하기</button>
       </div>
         
         
@@ -19,8 +21,12 @@ export default {
                 eng: '',
                 kor: '',
             }
+        }   
+    },
+    computed: {
+        testMode() {
+            return this.$store.state.testMode;
         }
-            
     },
     methods: {
         addWord() {

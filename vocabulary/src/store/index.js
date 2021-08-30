@@ -20,10 +20,13 @@ const storage = {
 export const store = new Vuex.Store({
     state: {
         wordsList: storage.fetchWordsList(),
+        testMode: false,
+        showModal: false,
+        answerCount: 0,
     },
     mutations: {
         addOneWord(state, payload) {
-            const obj = {testMode: false, eng: payload.eng, kor: payload.kor};
+            const obj = {eng: payload.eng, kor: payload.kor};
             localStorage.setItem(payload.eng, JSON.stringify(obj));
             state.wordsList.push(obj);
         },
@@ -32,6 +35,7 @@ export const store = new Vuex.Store({
             state.wordsList.splice(payload.index, 1);
         },
         testStart(state, payload) {
+            state.testMode = true;
             if(payload.length > 0) {
                 for(let i = 0; i < payload.length; i++) {
                     payload[i].testMode = true;
@@ -40,6 +44,8 @@ export const store = new Vuex.Store({
             }
         },
         testFinish(state, payload) {
+            state.testMode = false;
+            state.showModal = true;
             if(payload.length > 0) {
                 for(let i = 0; i < payload.length; i++) {
                     payload[i].testMode = false;
@@ -50,6 +56,9 @@ export const store = new Vuex.Store({
         clearAllWords(state){
             localStorage.clear();
             state.wordsList = [];  
+        },
+        closeModal(state) {
+            state.showModal = false;
         }
     }
 })
