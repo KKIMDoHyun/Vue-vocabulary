@@ -14,8 +14,8 @@
             <div class="modal-body">
                 <slot name="body">
                     번호 | 영단어 | 정답 | 내가 쓴 답
-                    <p v-for="(answer, index) in answer" :key="index">
-                        {{index}} | {{wordsList[index].eng}} | {{wordsList[index].kor}} | {{answer}}
+                    <p v-for="(word, index) in wordsList" :key="index">
+                        {{index}} | {{word.eng}} | {{word.kor}} | {{answer[index]}}
                     </p>
                 </slot>
             </div>

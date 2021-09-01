@@ -22,7 +22,9 @@ export const store = new Vuex.Store({
         wordsList: storage.fetchWordsList(),
         testMode: false,
         showModal: false,
+        answer: [],
         answerCount: 0,
+        testSettingModal: false,
     },
     mutations: {
         addOneWord(state, payload) {
@@ -44,6 +46,7 @@ export const store = new Vuex.Store({
             }
         },
         testFinish(state, payload) {
+            console.log(state.answer)
             state.testMode = false;
             state.showModal = true;
             if(payload.length > 0) {
@@ -59,6 +62,12 @@ export const store = new Vuex.Store({
         },
         closeModal(state) {
             state.showModal = false;
+        },
+        openTestSettingModal(state) {
+            state.testSettingModal = true;
+        },
+        closeTestSettingModal(state) {
+            state.testSettingModal = false;
         }
     }
 })

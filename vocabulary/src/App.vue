@@ -1,39 +1,36 @@
 <template>
-  <div id="app">
-    <VocabularyHeader></VocabularyHeader>
-    <VocabularyInput></VocabularyInput>
-    <VocabularyList></VocabularyList>
-    <VocabularyFooter></VocabularyFooter>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex align-center">
+        <v-img
+          alt="Vuetify Logo"
+          class="shrink mr-2"
+          contain
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          transition="scale-transition"
+          width="40"
+        />
+        <button
+          text
+          @click="$router.push('/').catch(()=>{})">
+          보카보카
+        </button>
+      </div>
+    </v-app-bar>
+
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import VocabularyHeader from './components/VocabularyHeader.vue'
-import VocabularyInput from './components/VocabularyInput.vue'
-import VocabularyList from './components/VocabularyList.vue'
-import VocabularyFooter from './components/VocabularyFooter.vue'
 
 export default {
   name: 'App',
-  components: {
-    VocabularyHeader,
-    VocabularyInput,
-    VocabularyList,
-    VocabularyFooter
-  }
-}
+};
 </script>
-
-<style>
-body {
-  text-align: center;
-  background-color: #F6F6F6;
-}
-input {
-  border-style: groove;
-  width: 200px;
-}
-button {
-  border-style: groove;
-}
-</style>

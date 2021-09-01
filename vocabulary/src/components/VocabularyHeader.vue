@@ -1,7 +1,9 @@
 <template>
-  <div>
-      <h1>Vocabulary</h1>
-  </div>
+  <v-container class="text-center">
+      <slot>
+        
+      </slot>
+  </v-container>
 </template>
 
 <script>
