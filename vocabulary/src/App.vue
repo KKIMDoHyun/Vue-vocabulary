@@ -15,8 +15,8 @@
           width="40"
         />
         <button
-          text
-          @click="$router.push('/').catch(()=>{})">
+          text 
+          @click="goMain">
           보카보카
         </button>
       </div>
@@ -32,5 +32,12 @@
 
 export default {
   name: 'App',
+  methods: {
+    goMain() {
+      if(!this.$store.state.testMode) {
+        this.$router.push('/').catch(()=>{})
+      }
+    }
+  }
 };
 </script>

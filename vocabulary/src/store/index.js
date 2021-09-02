@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import mutations from './mutation.js';
 Vue.use(Vuex);
 
 const storage = {
@@ -8,7 +8,8 @@ const storage = {
         const arr = [];
         if(localStorage.length > 0) {
             for (let i = 0; i < JSON.parse(localStorage.length); i++) {
-                if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
+                if (localStorage.key(i) !== 'loglevel:webpack-dev-server' &&
+                    localStorage.key(i) !== 'testList') {
                     arr.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
                 }
             }
@@ -22,52 +23,10 @@ export const store = new Vuex.Store({
         wordsList: storage.fetchWordsList(),
         testMode: false,
         showModal: false,
+        // testList: [],
         answer: [],
         answerCount: 0,
         testSettingModal: false,
     },
-    mutations: {
-        addOneWord(state, payload) {
-            const obj = {eng: payload.eng, kor: payload.kor};
-            localStorage.setItem(payload.eng, JSON.stringify(obj));
-            state.wordsList.push(obj);
-        },
-        removeOneWord(state, payload) {
-            localStorage.removeItem(payload.word.eng);
-            state.wordsList.splice(payload.index, 1);
-        },
-        testStart(state, payload) {
-            state.testMode = true;
-            if(payload.length > 0) {
-                for(let i = 0; i < payload.length; i++) {
-                    payload[i].testMode = true;
-                    localStorage.setItem(payload[i].eng, JSON.stringify(payload[i]))
-                }
-            }
-        },
-        testFinish(state, payload) {
-            console.log(state.answer)
-            state.testMode = false;
-            state.showModal = true;
-            if(payload.length > 0) {
-                for(let i = 0; i < payload.length; i++) {
-                    payload[i].testMode = false;
-                    localStorage.setItem(payload[i].eng, JSON.stringify(payload[i]))
-                }
-            }
-        },
-        clearAllWords(state){
-            localStorage.clear();
-            state.wordsList = [];  
-        },
-        closeModal(state) {
-            state.showModal = false;
-        },
-        openTestSettingModal(state) {
-            state.testSettingModal = true;
-        },
-        closeTestSettingModal(state) {
-            state.testSettingModal = false;
-        }
-    }
+    mutations
 })

@@ -1,24 +1,23 @@
 <template>
   <div>
-        <VocabularyHeader><h1 class="mb-6">Vocabulary</h1></VocabularyHeader>
+        <VocabularyHeader></VocabularyHeader>
         <VocabularyInput></VocabularyInput>
         <VocabularyList></VocabularyList>
-        <VocabularyFooter></VocabularyFooter>
+        <Footer></Footer>
   </div>
 </template>
 
 <script>
-import VocabularyHeader from '../../components/VocabularyHeader.vue';
+import VocabularyHeader from '../../components/PageHeader.vue';
 import VocabularyInput from './VocabularyInput.vue';
 import VocabularyList from './VocabularyList.vue';
-import VocabularyFooter from './VocabularyFooter.vue';
-
+import Footer from '../../components/PageFooter.vue';
 export default {
     components: {
         VocabularyHeader,
         VocabularyInput,
         VocabularyList,
-        VocabularyFooter
+        Footer
     }
 }
 </script>

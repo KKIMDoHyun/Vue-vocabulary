@@ -79,6 +79,9 @@ export default {
   components: {
     TestModal,
   },
+  created() {
+    this.$store.state.testMode = false;
+  },
   methods: {
     openModal() {
       this.$store.commit('openTestSettingModal');

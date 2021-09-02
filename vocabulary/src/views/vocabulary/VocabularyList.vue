@@ -49,33 +49,6 @@
         </template>
       </v-virtual-scroll>
     </v-card>
-  <!-- <v-card max-width="80%" class="mx-auto" style="overflow-y:auto; overflow-x:hidden; height:25rem;">
-    <v-list>
-      <v-list-item
-        v-for="(word, index) in wordsList"
-        :key="index"
-      >
-        <v-list-item-content>
-          <v-list-item-title v-text="index+1"></v-list-item-title>
-        </v-list-item-content>
-
-        <v-list-item-content>
-          <v-list-item-title v-text="word.eng"></v-list-item-title>
-        </v-list-item-content>
-
-        <v-list-item-content>
-          <v-list-item-title v-text="word.kor"></v-list-item-title>
-        </v-list-item-content>
-        
-        <v-list-item-content>
-          <span class="removeBtn" v-on:click="removeWord(word, index)">
-                    <i class="fas fa-trash-alt"></i>
-                </span>
-        </v-list-item-content>
-      
-      </v-list-item>
-    </v-list>
-  </v-card> -->
 </template>
 
 <script>

@@ -1,18 +1,21 @@
 <template>
   <div>
-      <VocabularyHeader><h1 class="mb-6">단어 시험</h1></VocabularyHeader>
+      <VocabularyHeader></VocabularyHeader>
       <TestList :params="$route.query"></TestList>
+      <Footer></Footer>
       {{$route.query}}
   </div>
 </template>
 
 <script>
-import VocabularyHeader from '../../components/VocabularyHeader.vue';
+import VocabularyHeader from '../../components/PageHeader.vue';
 import TestList from '../test/TestList.vue';
+import Footer from '../../components/PageFooter.vue';
 export default {
   components: {
         VocabularyHeader,
-        TestList
+        TestList,
+        Footer
     }
 }
 </script>

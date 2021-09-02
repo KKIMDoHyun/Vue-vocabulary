@@ -99,6 +99,9 @@ export default {
     }
   },
   computed: {
+    wordsList() {
+      return this.$store.state.wordsList;
+    },
     modal() {
       return this.showModal;
     },
@@ -108,8 +111,30 @@ export default {
   },
     methods: {
         testStart(quizSlider, timerSlider) {
+            console.log(timerSlider)
             this.closeModal();
-            this.$router.push({name: 'test', query:{quizNumber:quizSlider, timer:timerSlider}})
+            this.$store.state.testMode = true;
+            this.createTest(quizSlider);
+            let testList = this.createTest(quizSlider);
+            localStorage.setItem('testList', JSON.stringify(testList));
+            this.$router.push('/test');
+            // this.$router.push({name: 'test', params:{testList}});
+            // this.$store.commit("testStart", (this.quizSlider,)
+        },
+        createTest(quizSlider) {
+          const candidate = Array(this.wordsList.length).fill().map((v, i) => i);
+          const quizArray = [];
+          const testList = [];
+          while(candidate.length > 0) {
+              const random = Math.floor(Math.random() * candidate.length);
+              const spliceArray = candidate.splice(random, 1);
+              const value = spliceArray[0];
+              quizArray.push(value);
+          }
+          for(let i of quizArray.slice(0, quizSlider)) {
+            testList.push(this.$store.state.wordsList[i]);
+          }
+          return testList;
         },
         closeModal() {
           this.dialog = false;
