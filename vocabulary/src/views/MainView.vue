@@ -48,7 +48,7 @@
             </v-btn>
         </div>
         
-        <TestModal v-if="showModal"></TestModal>
+        <TestModal v-if="testSettingModal"></TestModal>
         
         <div class="my-7">
             <v-btn
@@ -71,20 +71,17 @@
 import TestModal from './test/TestModal.vue';
 
 export default {
-  computed: {
-    showModal() {
-      return this.$store.state.testSettingModal;
-    }
-  },
   components: {
     TestModal,
   },
-  created() {
-    this.$store.state.testMode = false;
+  computed: {
+    testSettingModal() {
+      return this.$store.state.testSettingModal;
+    }
   },
   methods: {
     openModal() {
-      this.$store.commit('openTestSettingModal');
+      this.$store.commit("openTestSettingModal")
     }
   }
 }

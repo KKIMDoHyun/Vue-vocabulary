@@ -4,6 +4,8 @@
       max-width="80%"
       class="mx-auto"
     >
+    {{minutes}} {{seconds}}
+    <button @click="startTimer">시작</button>
       <v-virtual-scroll
         :bench="benched"
         :items="testList"
@@ -52,42 +54,50 @@ export default {
       return {
         benched: 0,
         answer: [],
+        count: 0,
+        timer: null,
+        totalTime: JSON.parse(localStorage.getItem('test')).timer * 60,
       }
+    },
+    created() {
+      console.log(this.totalTime)
     },
     computed: {
         testList() {
-          return JSON.parse(localStorage.getItem('testList'))
+          return JSON.parse(localStorage.getItem('test')).testList
+        },
+        // totalTime: {
+        //   get() {
+        //     return JSON.parse(localStorage.getItem('test')).timer * 60
+        //   },
+        //   set(val) {
+        //     return val;
+        //   }
+        // },
+        minutes: function() {
+          const minutes = Math.floor(this.totalTime / 60);
+          return this.padTime(minutes);
+        },
+        seconds: function() {
+          const seconds = this.totalTime - (this.minutes * 60);
+          return this.padTime(seconds);
         }
+    },
+    methods: {
+      startTimer() {
+        this.timer = setInterval(() => this.countdown(), 1000);
+      },
+      padTime(time) {
+        return (time < 10 ? '0' : '') + time;
+      },
+      countdown() {
+        if(this.totalTime >= 1) {
+          this.totalTime--;
+        } else {
+          this.totalTime = 0;
+        }
+      }
     }
+    
 }
 </script>
-
-<style scoped>
-.removeBtn {
-    margin-left: auto;
-    color: #de4343;
-}
-/* 리스트 아이템 트랜지션 효과 */
-.list-enter-active, .list-leave-active {
-  transition: all 1s;
-}
-.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  transform: translateY(30px);
-}
-i:hover {
-  color:red;
-  cursor: pointer;
-  font-size: 1.5rem;
-  -webkit-animation: shake 0.4s ease-in-out .1s infinite alternate;
-}
-@-webkit-keyframes shake {
-  from{
-    -webkit-transform: rotate(10deg);
-  }
-  to{
-    -webkit-transform: rotate(-10deg);
-    -webkit-transform-origin: center center;
-  }
-}
-</style>

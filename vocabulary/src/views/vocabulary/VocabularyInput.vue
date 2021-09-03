@@ -129,7 +129,7 @@ export default {
     },
     methods: {
         addWord() {
-                const res = this.$store.state.wordsList.findIndex(this.isDuplicate)
+                const res = this.$store.state.wordList.findIndex(this.isDuplicate)
                 if(res === -1) {
                     if(this.validEng(this.newWord.eng) && this.validKor(this.newWord.kor)) {
                         const eng = this.newWord.eng.trim();

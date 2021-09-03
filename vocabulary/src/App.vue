@@ -1,27 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-        <button
-          text 
-          @click="goMain">
-          보카보카
-        </button>
-      </div>
-    </v-app-bar>
-
+    <TopBar></TopBar>
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -29,15 +8,11 @@
 </template>
 
 <script>
-
+import TopBar from '../src/components/TopBar.vue';
 export default {
   name: 'App',
-  methods: {
-    goMain() {
-      if(!this.$store.state.testMode) {
-        this.$router.push('/').catch(()=>{})
-      }
-    }
+  components: {
+    TopBar
   }
 };
 </script>

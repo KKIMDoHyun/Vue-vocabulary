@@ -1,24 +1,24 @@
 <template>
   <v-container class="text-center">
       <slot>
-        <template v-if="!testMode">
+        <template>
           <h1 class="mb-6">Vocabulary</h1>
         </template>
         
-        <template v-else>
+        <!-- <template v-else>
           <h1 class="mb-6">단어 시험</h1>
-        </template>
+        </template> -->
       </slot>
   </v-container>
 </template>
 
 <script>
 export default {
-  computed: {
-      testMode() {
-          return this.$store.state.testMode;
-      },
-  }
+  // computed: {
+  //     testMode() {
+  //         return localStorage.getItem('testMode');
+  //     },
+  // },
 }
 </script>
 

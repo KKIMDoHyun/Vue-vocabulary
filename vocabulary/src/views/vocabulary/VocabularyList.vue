@@ -6,14 +6,13 @@
     >
       <v-virtual-scroll
         :bench="benched"
-        :items="wordsList"
+        :items="wordList"
         height="400"
         item-height="65"
       >
         <template v-slot:default="{ item, index }">
           <v-list-item :key="index">
             <v-list-item-action>
-              <!-- {{index+1}} -->
               <v-btn
                 fab
                 small
@@ -39,7 +38,7 @@
             </v-list-item-content>
 
             <v-list-item-action>
-              <v-icon small @click="removeWord(item, index)">
+              <v-icon small @click="removeOneWord(item, index)">
                 {{ icons.mdiDelete }}
               </v-icon>
             </v-list-item-action>
@@ -59,17 +58,17 @@ export default {
         benched: 0,
         icons: {
           mdiDelete
-        }
+        },
       }
     },
     methods: {
-        removeWord(word, index) {
+        removeOneWord(word, index) {
             this.$store.commit("removeOneWord", {word, index});
         }
     },
     computed: {
-        wordsList() {
-            return this.$store.state.wordsList;
+        wordList() {
+            return this.$store.state.wordList;
         },
         testMode() {
             return this.$store.state.testMode;

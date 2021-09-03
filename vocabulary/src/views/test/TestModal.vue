@@ -43,7 +43,7 @@
                 <v-slider
                     v-model="timerSlider"
                     class="align-center"
-                    :max=50
+                    :max=10
                     :min=1
                     hide-details
                 >
@@ -54,7 +54,7 @@
                       hide-details
                       single-line
                       type="number"
-                      :max=50
+                      :max=10
                       :min=1
                       style="width: 40px"
                       required
@@ -65,17 +65,18 @@
             </v-row>
           </v-container>
         </v-card-text>
+
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="blue darken-1"
+            color="red darken-1"
             text
             @click="closeModal"
           >
             취소
           </v-btn>
           <v-btn
-            color="blue darken-1"
+            color="red darken-1"
             text
             @click="testStart(quizSlider, timerSlider)"
           >
@@ -93,36 +94,30 @@ export default {
     return {
       quizSlider: '',
       timerSlider: '',
-      max: this.$store.state.wordsList.length,
       min: 0,
-      dialog: true,
     }
   },
   computed: {
-    wordsList() {
-      return this.$store.state.wordsList;
-    },
-    modal() {
-      return this.showModal;
-    },
-    showModal() {
+    dialog() {
       return this.$store.state.testSettingModal;
+    },
+    wordList() {
+      return this.$store.state.wordList;
+    },
+    max() {
+      return this.$store.state.wordList.length;
     }
   },
     methods: {
-        testStart(quizSlider, timerSlider) {
-            console.log(timerSlider)
+        testStart(quizNumber, timer) {
             this.closeModal();
-            this.$store.state.testMode = true;
-            this.createTest(quizSlider);
-            let testList = this.createTest(quizSlider);
-            localStorage.setItem('testList', JSON.stringify(testList));
+            this.createTest(quizNumber);
+            const testList = this.createTest(quizNumber);
+            this.$store.commit("testStart", {testList, quizNumber, timer})
             this.$router.push('/test');
-            // this.$router.push({name: 'test', params:{testList}});
-            // this.$store.commit("testStart", (this.quizSlider,)
         },
-        createTest(quizSlider) {
-          const candidate = Array(this.wordsList.length).fill().map((v, i) => i);
+        createTest(quizNumber) {
+          const candidate = Array(this.wordList.length).fill().map((v, i) => i);
           const quizArray = [];
           const testList = [];
           while(candidate.length > 0) {
@@ -131,14 +126,13 @@ export default {
               const value = spliceArray[0];
               quizArray.push(value);
           }
-          for(let i of quizArray.slice(0, quizSlider)) {
-            testList.push(this.$store.state.wordsList[i]);
+          for(let i of quizArray.slice(0, quizNumber)) {
+            testList.push(this.$store.state.wordList[i]);
           }
           return testList;
         },
         closeModal() {
-          this.dialog = false;
-          this.$store.commit('closeTestSettingModal');
+          this.$store.commit("closeTestSettingModal")
         }
     }
 }

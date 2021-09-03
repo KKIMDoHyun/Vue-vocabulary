@@ -1,9 +1,8 @@
 <template>
   <div>
       <VocabularyHeader></VocabularyHeader>
-      <TestList :params="$route.query"></TestList>
+      <TestList></TestList>
       <Footer></Footer>
-      {{$route.query}}
   </div>
 </template>
 
@@ -16,7 +15,7 @@ export default {
         VocabularyHeader,
         TestList,
         Footer
-    }
+    },
 }
 </script>
 

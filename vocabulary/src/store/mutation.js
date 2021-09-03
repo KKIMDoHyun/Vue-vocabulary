@@ -1,24 +1,30 @@
 export default {
     addOneWord(state, payload) {
         const obj = {eng: payload.eng, kor: payload.kor};
-        localStorage.setItem(payload.eng, JSON.stringify(obj));
-        state.wordsList.push(obj);
+        state.wordList.push(obj);
+        localStorage.setItem('wordList', JSON.stringify(state.wordList));
     },
     removeOneWord(state, payload) {
-        localStorage.removeItem(payload.word.eng);
-        state.wordsList.splice(payload.index, 1);
+        state.wordList.splice(payload.index, 1);
+        localStorage.setItem('wordList', JSON.stringify(state.wordList));
     },
     clearAllWords(state){
-        localStorage.clear();
-        state.wordsList = [];  
-    },
-    closeModal(state) {
-        state.showModal = false;
+        state.wordList = []; 
+        localStorage.removeItem('wordList');
     },
     openTestSettingModal(state) {
         state.testSettingModal = true;
     },
     closeTestSettingModal(state) {
         state.testSettingModal = false;
+    },
+    testStart(state, payload) {
+        const obj = {testList: payload.testList, quizNumber: payload.quizNumber, timer: payload.timer, testMode: true}
+        localStorage.setItem('test', JSON.stringify(obj));
+    },
+    testFinish(state) {
+        state.testMode = false;
+        localStorage.setItem('testMode', state.testMode);
+        // localStorage.removeItem('testList');
     }
 }

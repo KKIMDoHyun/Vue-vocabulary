@@ -1,6 +1,6 @@
 <template>
     <div class="text-center mt-8">
-        <template v-if="!testMode">
+        <template>
           <v-btn
             x-large
             elevation="3"
@@ -13,7 +13,7 @@
           </v-btn>
         </template>
         
-        <template v-else>
+        <!-- <template v-else>
           <v-btn
             x-large
             elevation="3"
@@ -24,7 +24,7 @@
           >
             제출 하기
           </v-btn>
-        </template>
+        </template> -->
     </div>
 </template>
 
@@ -37,17 +37,15 @@ export default {
     },
     testFinish() {
         console.log("test Finish")
-        this.$store.state.testMode = false;
-        localStorage.removeItem('testList');
+        this.$store.commit('testFinish');
         this.$router.push('/testResult')
-        // this.$store.commit('testFinish');
     }
   },
-  computed: {
-    testMode() {
-        return this.$store.state.testMode;
-    }
-  }
+  // computed: {
+  //   testMode() {
+  //       return localStorage.getItem('testMode');
+  //   }
+  // }
     
 }
 </script>

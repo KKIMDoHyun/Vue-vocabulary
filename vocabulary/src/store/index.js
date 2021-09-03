@@ -1,32 +1,42 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+// import state from './state'
 import mutations from './mutation.js';
 Vue.use(Vuex);
 
 const storage = {
-    fetchWordsList() {
+    fetchWordList() {
         const arr = [];
-        if(localStorage.length > 0) {
-            for (let i = 0; i < JSON.parse(localStorage.length); i++) {
-                if (localStorage.key(i) !== 'loglevel:webpack-dev-server' &&
-                    localStorage.key(i) !== 'testList') {
-                    arr.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-                }
-            }
+        if(JSON.parse(localStorage.getItem('wordList'))) {
+            return JSON.parse(localStorage.getItem('wordList'));
         }
         return arr;
-    }
+    },
+    // fetchTestList() {
+    //     const arr = [];
+    //     if(JSON.parse(localStorage.getItem('test'))) {
+    //         return JSON.parse(localStorage.getItem('test').testList);
+    //     }
+    //     return arr;
+    // },
+    // fetchTestMode() {
+    //     const mode = false;
+    //     if(JSON.parse(localStorage.getItem('test'))){
+    //         return JSON.parse(localStorage.getItem('test').testMode);
+    //     }
+    //     return mode;
+    // }
 }
 
 export const store = new Vuex.Store({
     state: {
-        wordsList: storage.fetchWordsList(),
-        testMode: false,
+        // testList: storage.fetchTestList(),
+        wordList: storage.fetchWordList(),
+        testSettingModal: false,
+        // testMode: storage.fetchTestMode(),
         showModal: false,
-        // testList: [],
         answer: [],
         answerCount: 0,
-        testSettingModal: false,
     },
     mutations
 })
