@@ -30,10 +30,8 @@ const storage = {
 
 export const store = new Vuex.Store({
     state: {
-        // testList: storage.fetchTestList(),
         wordList: storage.fetchWordList(),
         testSettingModal: false,
-        // testMode: storage.fetchTestMode(),
         showModal: false,
         answer: [],
         answerCount: 0,

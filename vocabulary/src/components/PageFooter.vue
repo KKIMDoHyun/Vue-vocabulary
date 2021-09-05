@@ -1,6 +1,6 @@
 <template>
     <div class="text-center mt-8">
-        <template>
+        <template v-if="!testMode">
           <v-btn
             x-large
             elevation="3"
@@ -12,8 +12,7 @@
             전체 삭제
           </v-btn>
         </template>
-        
-        <!-- <template v-else>
+        <template v-else>
           <v-btn
             x-large
             elevation="3"
@@ -24,28 +23,29 @@
           >
             제출 하기
           </v-btn>
-        </template> -->
+        </template>
     </div>
 </template>
 
 <script>
 
 export default {
+  props:['answer', 'testStart'],
   methods: {
     clearWords() {
         this.$store.commit('clearAllWords');
     },
     testFinish() {
         console.log("test Finish")
-        this.$store.commit('testFinish');
-        this.$router.push('/testResult')
+        this.$store.commit('testFinish', this.answer);
+        this.$router.replace('/testResult')
     }
   },
-  // computed: {
-  //   testMode() {
-  //       return localStorage.getItem('testMode');
-  //   }
-  // }
+  computed: {
+    testMode() {
+        return JSON.parse(localStorage.getItem('test')).testMode;
+    }
+  }
     
 }
 </script>

@@ -1,11 +1,14 @@
 <template>
+<div>
+  <div class="text-center">
+    {{minutes}} {{seconds}}
+    <button v-if="!testStart" @click="startTimer">시작</button>
+  </div> 
   <v-card
       elevation="13"
       max-width="80%"
       class="mx-auto"
     >
-    {{minutes}} {{seconds}}
-    <button @click="startTimer">시작</button>
       <v-virtual-scroll
         :bench="benched"
         :items="testList"
@@ -35,6 +38,7 @@
 
             <v-list-item-content>
               <v-text-field
+                :disabled = !testStart
                 v-model="answer[index]"
                 label="정답"
               ></v-text-field>
@@ -46,9 +50,12 @@
         </template>
       </v-virtual-scroll>
     </v-card>
+    <Footer :answer="answer" :testStart="testStart"></Footer>
+  </div>
 </template>
 
 <script>
+import Footer from '../../components/PageFooter.vue';
 export default {
     data() {
       return {
@@ -57,23 +64,16 @@ export default {
         count: 0,
         timer: null,
         totalTime: JSON.parse(localStorage.getItem('test')).timer * 60,
+        testStart: false,
       }
     },
-    created() {
-      console.log(this.totalTime)
+    components: {
+      Footer,
     },
     computed: {
         testList() {
           return JSON.parse(localStorage.getItem('test')).testList
         },
-        // totalTime: {
-        //   get() {
-        //     return JSON.parse(localStorage.getItem('test')).timer * 60
-        //   },
-        //   set(val) {
-        //     return val;
-        //   }
-        // },
         minutes: function() {
           const minutes = Math.floor(this.totalTime / 60);
           return this.padTime(minutes);
@@ -86,6 +86,7 @@ export default {
     methods: {
       startTimer() {
         this.timer = setInterval(() => this.countdown(), 1000);
+        this.testStart = true;
       },
       padTime(time) {
         return (time < 10 ? '0' : '') + time;

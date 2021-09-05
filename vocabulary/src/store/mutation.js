@@ -22,8 +22,10 @@ export default {
         const obj = {testList: payload.testList, quizNumber: payload.quizNumber, timer: payload.timer, testMode: true}
         localStorage.setItem('test', JSON.stringify(obj));
     },
-    testFinish(state) {
+    testFinish(state, payload) {
         state.testMode = false;
+        console.log(payload)
+        localStorage.setItem('answer', JSON.stringify(payload))
         localStorage.setItem('testMode', state.testMode);
         // localStorage.removeItem('testList');
     }

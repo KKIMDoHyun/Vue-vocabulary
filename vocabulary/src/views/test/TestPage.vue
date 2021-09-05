@@ -2,19 +2,19 @@
   <div>
       <VocabularyHeader></VocabularyHeader>
       <TestList></TestList>
-      <Footer></Footer>
+      <!-- <Footer></Footer> -->
   </div>
 </template>
 
 <script>
 import VocabularyHeader from '../../components/PageHeader.vue';
 import TestList from '../test/TestList.vue';
-import Footer from '../../components/PageFooter.vue';
+// import Footer from '../../components/PageFooter.vue';
 export default {
   components: {
         VocabularyHeader,
         TestList,
-        Footer
+        // Footer
     },
 }
 </script>
