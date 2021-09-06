@@ -57,7 +57,7 @@
               color="warning"
               outlined
               dark
-              to="/test"
+              to="/resultList"
             >
               결과 확인
             </v-btn>

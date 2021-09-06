@@ -1,6 +1,6 @@
 <template>
     <div class="text-center mt-8">
-        <template v-if="!testMode">
+        <template v-if="footer">
           <v-btn
             x-large
             elevation="3"
@@ -36,16 +36,19 @@ export default {
         this.$store.commit('clearAllWords');
     },
     testFinish() {
-        console.log("test Finish")
         this.$store.commit('testFinish', this.answer);
         this.$router.replace('/testResult')
     }
   },
   computed: {
-    testMode() {
-        return JSON.parse(localStorage.getItem('test')).testMode;
-    }
-  }
+      footer() {
+        if(this.$route.name === 'vocabulary') {
+          return true;
+        } else {
+          return false;
+        }
+      }
+  },
     
 }
 </script>

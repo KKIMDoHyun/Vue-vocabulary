@@ -5,6 +5,7 @@ import MainView from '../views/MainView.vue';
 import vocabulary from '../views/vocabulary/Vocabulary.vue';
 import test_page from '../views/test/TestPage.vue';
 import test_result from '../views/test/TestResult.vue';
+import result_List from '../views/result/ResultList.vue';
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,11 @@ export const router = new VueRouter({
             path: '/testResult',
             name: 'testResult',
             component: test_result
+        },
+        {
+            path: '/resultList',
+            name: 'resultList',
+            component: result_List
         }
     ]
   });

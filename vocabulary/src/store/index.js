@@ -12,26 +12,20 @@ const storage = {
         }
         return arr;
     },
-    // fetchTestList() {
-    //     const arr = [];
-    //     if(JSON.parse(localStorage.getItem('test'))) {
-    //         return JSON.parse(localStorage.getItem('test').testList);
-    //     }
-    //     return arr;
-    // },
-    // fetchTestMode() {
-    //     const mode = false;
-    //     if(JSON.parse(localStorage.getItem('test'))){
-    //         return JSON.parse(localStorage.getItem('test').testMode);
-    //     }
-    //     return mode;
-    // }
+    fetchTestResultList() {
+        const arr = [];
+        if(JSON.parse(localStorage.getItem('testResultList'))) {
+            return JSON.parse(localStorage.getItem('testResultList'));
+        }
+        return arr;
+    },
 }
 
 export const store = new Vuex.Store({
     state: {
         wordList: storage.fetchWordList(),
         testSettingModal: false,
+        testResultList: storage.fetchTestResultList(),
         showModal: false,
         answer: [],
         answerCount: 0,

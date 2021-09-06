@@ -1,12 +1,8 @@
 <template>
   <v-container class="text-center">
       <slot>
-        <template v-if="!testMode">
+        <template v-if="header">
           <h1 class="mb-6">Vocabulary</h1>
-        </template>
-        
-        <template v-if="answer">
-          <h1 class="mb-6">시험 결과</h1>
         </template>
 
         <template v-else>
@@ -19,13 +15,15 @@
 <script>
 export default {
   computed: {
-      testMode() {
-          return JSON.parse(localStorage.getItem('test')).testMode;
-      },
-      answer() {
-        return JSON.parse(localStorage.getItem('answer'));
+      header() {
+        if(this.$route.name === 'vocabulary') {
+          return true;
+        } else {
+          return false;
+        }
       }
   },
+  
 }
 </script>
 

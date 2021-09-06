@@ -23,10 +23,22 @@ export default {
         localStorage.setItem('test', JSON.stringify(obj));
     },
     testFinish(state, payload) {
-        state.testMode = false;
-        console.log(payload)
-        localStorage.setItem('answer', JSON.stringify(payload))
-        localStorage.setItem('testMode', state.testMode);
-        // localStorage.removeItem('testList');
-    }
+        state.testSettingModal=false;
+        state.answerCount = 0;
+        state.answer = [];
+        let currentTime = new Date();
+        const obj = {testList: JSON.parse(localStorage.getItem('test')).testList,
+                    answer: JSON.parse(JSON.stringify(payload)), 
+                    timer: JSON.parse(localStorage.getItem('test')).timer,
+                    date: currentTime.getFullYear() + '/' + 
+                            currentTime.getMonth() + '/' +
+                            currentTime.getDate(),
+                    time: currentTime.getHours() + ':' +
+                            currentTime.getMinutes()}
+        state.testResultList.push(obj);
+        localStorage.setItem('testResultList', JSON.stringify(state.testResultList));
+        localStorage.removeItem('test')
+    },
+    // clearTest(state) {
+    // }
 }

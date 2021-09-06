@@ -1,6 +1,10 @@
 <template>
   <div>
-    <VocabularyHeader></VocabularyHeader>
+    <v-container class="text-center">
+        <template>
+          <h1 class="mb-6">시험 결과</h1>
+        </template>
+    </v-container>
       <v-card
       elevation="13"
       max-width="80%"
@@ -44,7 +48,7 @@
             <v-list-item-content>
               <v-list-item-title>
                 <strong v-if="answer[index]" style="color:blue">{{ myAnswer[index] }}</strong>
-                <strong v-else style="color:red; text-decoration:line-through">{{ myAnswer[index] }}</strong>
+                <strong v-else style="color:red; text-decoration:line-through">{{ myAnswer[index] || "빈 칸"}}</strong>
               </v-list-item-title>
             </v-list-item-content>
 
@@ -62,31 +66,43 @@
       </v-virtual-scroll>
     </v-card>
     
-    <div class="text-center">
+    <v-container class="text-center">
       {{correctNumber}} / {{testList.length}}
       <br>
       {{score}}점
-    </div> 
+    </v-container>
+
+    <v-container class="text-center">
+      <v-btn
+        x-large
+        elevation="3"
+        color="error"
+        outlined
+        dark
+        @click="goMain"
+      >
+        메인으로
+      </v-btn>
+    </v-container>
   </div>
 </template>
 
 <script>
-import VocabularyHeader from '../../components/PageHeader.vue';
 export default {
   data() {
     return {
       answer: [],
     }
   },
-  components: {
-    VocabularyHeader
-  },
   computed: {
+    resultTestList() {
+      return JSON.parse(localStorage.getItem('testResultList'));
+    },
     myAnswer() {
-      return JSON.parse(localStorage.getItem('answer'));
+      return JSON.parse(localStorage.getItem('testResultList'))[this.resultTestList.length-1].answer;
     },
     testList() {
-      return JSON.parse(localStorage.getItem('test')).testList;
+      return JSON.parse(localStorage.getItem('testResultList'))[this.resultTestList.length-1].testList;
     },
     correctNumber() {
       return this.answer.filter(ele => true === ele).length;
@@ -103,7 +119,19 @@ export default {
         this.answer.push(false)
       }
     }
-    console.log(this.answer)
+  },
+  methods: {
+    goMain() {
+      this.$router.replace('/')
+    }
   }
 }
 </script>
+
+<style scoped>
+h1 {
+    color: #2F3B52;
+    font-weight: 900;
+    margin: 2.5rem 0 1.5rem;
+}
+</style>
